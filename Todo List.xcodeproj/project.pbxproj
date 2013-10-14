@@ -22,6 +22,9 @@
 		22101A88180733AF00C27295 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22101A6C180733AF00C27295 /* CoreData.framework */; };
 		22101A90180733AF00C27295 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22101A8E180733AF00C27295 /* InfoPlist.strings */; };
 		22101A92180733AF00C27295 /* Todo_ListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22101A91180733AF00C27295 /* Todo_ListTests.m */; };
+		22101A9D180733EB00C27295 /* TodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22101A9C180733EB00C27295 /* TodoViewController.m */; };
+		22101AA01807356900C27295 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22101A9F1807356900C27295 /* Cell.m */; };
+		22101AA2180735ED00C27295 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22101AA1180735ED00C27295 /* Cell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,11 @@
 		22101A8D180733AF00C27295 /* Todo ListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Todo ListTests-Info.plist"; sourceTree = "<group>"; };
 		22101A8F180733AF00C27295 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22101A91180733AF00C27295 /* Todo_ListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Todo_ListTests.m; sourceTree = "<group>"; };
+		22101A9B180733EB00C27295 /* TodoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodoViewController.h; path = ../TodoViewController.h; sourceTree = "<group>"; };
+		22101A9C180733EB00C27295 /* TodoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodoViewController.m; path = ../TodoViewController.m; sourceTree = "<group>"; };
+		22101A9E1807356900C27295 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		22101A9F1807356900C27295 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		22101AA1180735ED00C27295 /* Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,11 +123,16 @@
 		22101A6E180733AF00C27295 /* Todo List */ = {
 			isa = PBXGroup;
 			children = (
+				22101A9B180733EB00C27295 /* TodoViewController.h */,
+				22101A9C180733EB00C27295 /* TodoViewController.m */,
 				22101A77180733AF00C27295 /* TodoAppDelegate.h */,
 				22101A78180733AF00C27295 /* TodoAppDelegate.m */,
 				22101A7D180733AF00C27295 /* Images.xcassets */,
 				22101A7A180733AF00C27295 /* Todo_List.xcdatamodeld */,
 				22101A6F180733AF00C27295 /* Supporting Files */,
+				22101A9E1807356900C27295 /* Cell.h */,
+				22101A9F1807356900C27295 /* Cell.m */,
+				22101AA1180735ED00C27295 /* Cell.xib */,
 			);
 			path = "Todo List";
 			sourceTree = "<group>";
@@ -230,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22101A73180733AF00C27295 /* InfoPlist.strings in Resources */,
+				22101AA2180735ED00C27295 /* Cell.xib in Resources */,
 				22101A7E180733AF00C27295 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22101AA01807356900C27295 /* Cell.m in Sources */,
+				22101A9D180733EB00C27295 /* TodoViewController.m in Sources */,
 				22101A79180733AF00C27295 /* TodoAppDelegate.m in Sources */,
 				22101A7C180733AF00C27295 /* Todo_List.xcdatamodeld in Sources */,
 				22101A75180733AF00C27295 /* main.m in Sources */,
