@@ -18,7 +18,6 @@
 @interface Cell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *item;
-@property (weak, nonatomic) UITableView *parent;
 @property (strong, nonatomic) id <CellDelegate> delegate;
 
 @end

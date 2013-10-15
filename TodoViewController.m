@@ -9,7 +9,10 @@
 #import "TodoViewController.h"
 #import "Cell.h"
 
+static const int TodoSections = 1;
+
 @interface TodoViewController ()
+@property(strong, nonatomic) NSMutableArray *items;
 
 @end
 
@@ -21,11 +24,11 @@
     if (self) {
         self.items = [[NSMutableArray alloc] init];
         
-        NSString *myStr = @"Install Todo list";
+        NSString *myStr = @"Install Todo List";
         [self.items addObject:myStr];
-        
-        NSString *myStr2 = @"";  // empty item for editing
+        NSString *myStr2 = @"";  // default to new blank item
         [self.items addObject:myStr2];
+
     }
     return self;
 }
@@ -40,21 +43,27 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTodoItem)];
+    self.navigationItem.rightBarButtonItem = addButton;
+}
+
+- (void)addNewTodoItem
+{
+    NSString *myStr = @"";  // add blank item for editing
+    [self.items addObject:myStr];
+
+    [self.tableView reloadData];
 }
 
 - (void) addItemDoneEditing:(Cell *)cell
 {
     NSString *addText = cell.item.text;
-    [self.items addObject:addText];
-   // [self.items addObject:@""]; // empty item for editing
- 
+
+    [self addTodoText:addText];
+
+    [cell.item resignFirstResponder];
     [self.tableView reloadData];
 }
 
@@ -68,7 +77,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return TodoSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,33 +89,48 @@
 {    
     Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.item.text = [self.items objectAtIndex:[indexPath row]];
+    cell.item.text = [self.items objectAtIndex:indexPath.row];
     cell.delegate = self;
-    cell.parent = tableView;
+    cell.item.delegate = self;
+
+    if (indexPath.row == self.items.count-1) {
+        [cell.item becomeFirstResponder];
+
+        [tableView selectRowAtIndexPath:indexPath animated:TRUE scrollPosition:UITableViewScrollPositionNone];
+    }
     
     return cell;
 }
 
-/*
-// Override to support editing the table view.
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *addText = textField.text;
+
+    [self addTodoText:addText];
+
+    [textField resignFirstResponder];
+    [self.tableView reloadData];
+
+    return YES;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        [self.items removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
 
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+// TODO save to datasource
 }
-*/
+
+- (void)addTodoText:(NSString *)todoText {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.items replaceObjectAtIndex:[indexPath row] withObject:todoText];
+}
 
 /*
 // Override to support conditional rearranging of the table view.
@@ -117,16 +141,5 @@
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end

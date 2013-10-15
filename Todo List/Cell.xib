@@ -19,7 +19,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                         <connections>
-                            <action selector="todoDone:forEvent:" destination="ZGu-IG-vwP" eventType="editingDidEnd" id="3WI-4y-cDG"/>
+                            <action selector="todoDone:forEvent:" destination="ZGu-IG-vwP" eventType="editingDidEnd" id="fZh-14-Vhm"/>
                         </connections>
                     </textField>
                 </subviews>

@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Cell.h"
 
-@interface TodoViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, CellDelegate>
+@interface TodoViewController : UITableViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, CellDelegate>
 
-@property(strong, nonatomic) NSMutableArray *items;
 
 @end
