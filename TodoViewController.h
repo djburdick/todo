@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Cell.h"
 
-@interface TodoViewController : UITableViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, CellDelegate>
+@interface TodoViewController : UITableViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 
 @end

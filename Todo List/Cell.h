@@ -8,16 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CellDelegate <NSObject>
-
-@optional
-- (void)userIsEditingItem:(id)sender;
-
-@end
-
 @interface Cell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *item;
-@property (strong, nonatomic) id <CellDelegate> delegate;
 
 @end

@@ -9,7 +9,6 @@
 #import "Cell.h"
 
 @interface Cell ()
-- (IBAction)editItem:(UITextField *)sender;
 
 @end
 
@@ -26,10 +25,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-}
-
-- (IBAction)editItem:(UITextField *)sender {
-    [self.delegate userIsEditingItem:sender];
 }
 
 @end

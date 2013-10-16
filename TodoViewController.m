@@ -56,11 +56,6 @@ static const int TodoSections = 1;
     [self.tableView reloadData];
 }
 
-- (void) userIsEditingItem:(Cell *)cell
-{
-    [self setEditing:YES animated:YES];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -84,8 +79,7 @@ static const int TodoSections = 1;
     Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     cell.item.text = [self.items objectAtIndex:indexPath.row];
-    cell.delegate = self;
-    cell.item.delegate = self;
+    cell.item.delegate = self;  // so we can access textFieldShouldReturn
 
     if (indexPath.row == self.items.count-1) {
         [cell.item becomeFirstResponder];
@@ -106,6 +100,10 @@ static const int TodoSections = 1;
     [self.tableView reloadData];
 
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self setEditing:YES animated:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
