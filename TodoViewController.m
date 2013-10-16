@@ -51,6 +51,8 @@ static const int TodoSections = 1;
 
 - (void)addNewTodoItem
 {
+    [self syncAllCellsWithDataStore];
+
     [self addNewBlankItem];
 
     [self.tableView reloadData];
@@ -91,13 +93,18 @@ static const int TodoSections = 1;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSString *addText = textField.text;
 
-    [self addTodoText:addText];
-    [self addNewBlankItem];
+    if (!self.tableView.editing) {
+        NSString *addText = textField.text;
 
-    [textField resignFirstResponder];
-    [self.tableView reloadData];
+        [self addTodoText:addText];
+        [self addNewBlankItem];
+
+        [textField resignFirstResponder];
+        [self.tableView reloadData];
+    } else {
+        [self setEditing:NO animated:YES];
+    }
 
     return YES;
 }
