@@ -132,7 +132,7 @@ static const int TodoSections = 1;
 - (void)syncAllCellsWithDataStore
 {
     for (int i=0; i < self.items.count; i++) {
-        Cell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        Cell *cell = (Cell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
 
         [self.items replaceObjectAtIndex:i withObject:cell.item.text];
     }
