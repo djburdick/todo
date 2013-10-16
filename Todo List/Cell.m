@@ -9,7 +9,7 @@
 #import "Cell.h"
 
 @interface Cell ()
-- (IBAction)todoDone:(UITextField *)sender forEvent:(UIEvent *)event;
+- (IBAction)editItem:(UITextField *)sender;
 
 @end
 
@@ -28,8 +28,8 @@
     [super setSelected:selected animated:animated];
 }
 
-- (IBAction)todoDone:(UITextField *)sender forEvent:(UIEvent *)event {
-    [self.delegate addItemDoneEditing:self];
+- (IBAction)editItem:(UITextField *)sender {
+    [self.delegate userIsEditingItem:sender];
 }
 
 @end

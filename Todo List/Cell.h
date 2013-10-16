@@ -11,7 +11,7 @@
 @protocol CellDelegate <NSObject>
 
 @optional
-- (void)addItemDoneEditing:(id)sender;
+- (void)userIsEditingItem:(id)sender;
 
 @end
 

@@ -26,8 +26,8 @@ static const int TodoSections = 1;
         
         NSString *myStr = @"Install Todo List";
         [self.items addObject:myStr];
-        NSString *myStr2 = @"";  // default to new blank item
-        [self.items addObject:myStr2];
+
+        [self addNewBlankItem];
 
     }
     return self;
@@ -51,20 +51,14 @@ static const int TodoSections = 1;
 
 - (void)addNewTodoItem
 {
-    NSString *myStr = @"";  // add blank item for editing
-    [self.items addObject:myStr];
+    [self addNewBlankItem];
 
     [self.tableView reloadData];
 }
 
-- (void) addItemDoneEditing:(Cell *)cell
+- (void) userIsEditingItem:(Cell *)cell
 {
-    NSString *addText = cell.item.text;
-
-    [self addTodoText:addText];
-
-    [cell.item resignFirstResponder];
-    [self.tableView reloadData];
+    [self setEditing:YES animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,11 +100,17 @@ static const int TodoSections = 1;
     NSString *addText = textField.text;
 
     [self addTodoText:addText];
+    [self addNewBlankItem];
 
     [textField resignFirstResponder];
     [self.tableView reloadData];
 
     return YES;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.tableView endEditing:YES];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,25 +121,37 @@ static const int TodoSections = 1;
     }
 }
 
-// Override to support rearranging the table view.
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+
+    if(!editing) {
+        // triggered when user hits "done"
+        [self syncAllCellsWithDataStore];
+    }
+}
+
+- (void)syncAllCellsWithDataStore
+{
+    for (int i=0; i < self.items.count; i++) {
+        Cell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+
+        [self.items replaceObjectAtIndex:i withObject:cell.item.text];
+    }
+}
+
+- (void)addNewBlankItem {
+    NSString *myStr = @"";
+    [self.items addObject:myStr];
+}
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-// TODO save to datasource
 }
 
 - (void)addTodoText:(NSString *)todoText {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    [self.items replaceObjectAtIndex:[indexPath row] withObject:todoText];
+    [self.items replaceObjectAtIndex:self.items.count-1 withObject:todoText];
 }
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 @end
