@@ -22,13 +22,7 @@ static const int TodoSections = 1;
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.items = [[NSMutableArray alloc] init];
-        
-        NSString *myStr = @"Install Todo List";
-        [self.items addObject:myStr];
-
-        [self addNewBlankItem];
-
+        self.items = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"Todo"]];
     }
     return self;
 }
@@ -123,6 +117,7 @@ static const int TodoSections = 1;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.items removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [[NSUserDefaults standardUserDefaults] setObject:self.items forKey:@"Todo"];
     }
 }
 
@@ -143,6 +138,8 @@ static const int TodoSections = 1;
 
         [self.items replaceObjectAtIndex:i withObject:cell.item.text];
     }
+    [[NSUserDefaults standardUserDefaults] setObject:self.items forKey:@"Todo"];
+
 }
 
 - (void)addNewBlankItem {
@@ -156,6 +153,8 @@ static const int TodoSections = 1;
 
 - (void)addTodoText:(NSString *)todoText {
     [self.items replaceObjectAtIndex:self.items.count-1 withObject:todoText];
+    [[NSUserDefaults standardUserDefaults] setObject:self.items forKey:@"Todo"];
+
 }
 
 
